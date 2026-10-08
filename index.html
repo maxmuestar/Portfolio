@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <canvas class="ambient-canvas" aria-hidden="true"></canvas>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+  <div class="noise-layer" aria-hidden="true"></div>
   <div class="site-shell">
     <header class="site-header">
       <a class="brand" href="#top" aria-label="Max Muetstege home">
@@ -20,8 +25,13 @@
       <nav class="main-nav" aria-label="Hoofdnavigatie">
         <a href="#work">Werk</a>
         <a href="#about">Over mij</a>
+        <a href="#lab">Lab</a>
         <a class="nav-contact" href="#contact">Neem contact op <span aria-hidden="true">↗</span></a>
       </nav>
+      <div class="header-tools">
+        <button class="icon-button palette-trigger" type="button" aria-label="Open command palette" title="Command palette">⌘K</button>
+        <button class="icon-button theme-trigger" type="button" aria-label="Wissel accentkleur" title="Wissel accentkleur"><span></span></button>
+      </div>
       <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
         <span></span><span></span>
       </button>
@@ -34,12 +44,13 @@
           <h1>Ik bouw het web met <em>karakter.</em></h1>
           <p class="hero-intro">Ik ben Max, een HTML / Java developer die ideeën omzet in snelle, heldere en eigenzinnige digitale ervaringen.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#work">Bekijk mijn werk <span>↓</span></a>
-            <a class="text-link" href="#contact">Laten we praten <span>↗</span></a>
+            <a class="button button-primary magnetic" href="#work">Bekijk mijn werk <span>↓</span></a>
+            <a class="text-link magnetic" href="#contact">Laten we praten <span>↗</span></a>
           </div>
+          <div class="hero-meta"><span>Scroll driven</span><span>Motion minded</span><span>Pixel precise</span></div>
         </div>
         <div class="hero-art reveal reveal-delay" aria-hidden="true">
-          <div class="code-window">
+          <div class="code-window tilt-card" data-tilt-strength="8">
             <div class="window-bar"><span></span><span></span><span></span><small>max.dev</small></div>
             <pre><code><span class="code-muted">01</span> <span class="code-key">const</span> developer = {
 <span class="code-muted">02</span>   name: <span class="code-string">'Max Muetstege'</span>,
@@ -57,9 +68,18 @@
         <div class="section-heading reveal">
           <p class="eyebrow">01 — geselecteerd werk</p>
           <h2>Van concept<br /><span>naar klik.</span></h2>
+          <p class="section-note">Beweeg over een case. Klik voor de details.</p>
         </div>
         <div class="project-list">
-          <article class="project-card project-dark reveal">
+          <div class="project-toolbar reveal">
+            <div class="filter-group" role="group" aria-label="Filter projecten">
+              <button class="filter-button is-active" type="button" data-filter="all">Alles <span>02</span></button>
+              <button class="filter-button" type="button" data-filter="web">Web <span>01</span></button>
+              <button class="filter-button" type="button" data-filter="java">Java <span>01</span></button>
+            </div>
+            <span class="project-count"><b>02</b> projecten</span>
+          </div>
+          <article class="project-card project-dark reveal tilt-card" data-category="web" data-project="flux" data-tilt-strength="5" tabindex="0">
             <div class="project-topline"><span>01 / web development</span><span>2026</span></div>
             <div class="project-visual visual-dashboard">
               <div class="mini-sidebar"></div><div class="mini-chart"><i></i><i></i><i></i><i></i><i></i></div>
@@ -67,7 +87,7 @@
             </div>
             <div class="project-info"><h3>Flux dashboard</h3><p>Een rustig controlecentrum voor complexe data.</p><a href="#contact" aria-label="Meer informatie over Flux dashboard">↗</a></div>
           </article>
-          <article class="project-card project-orange reveal reveal-delay">
+          <article class="project-card project-orange reveal reveal-delay tilt-card" data-category="java" data-project="atlas" data-tilt-strength="5" tabindex="0">
             <div class="project-topline"><span>02 / java application</span><span>2025</span></div>
             <div class="project-visual visual-java"><span class="java-symbol">{ }</span><span class="visual-tag">backend logic</span></div>
             <div class="project-info"><h3>Atlas API</h3><p>Een schaalbare Java-basis die werk uit handen neemt.</p><a href="#contact" aria-label="Meer informatie over Atlas API">↗</a></div>
@@ -82,17 +102,57 @@
           <h2>Techniek mag<br /><em>menselijk</em> voelen.</h2>
           <p>Goede software doet meer dan werken. Het geeft richting, voelt logisch en laat ruimte voor wat er echt toe doet. Vanuit die gedachte bouw ik interfaces en applicaties die helder zijn tot in de details.</p>
           <div class="skill-row"><span>Mijn gereedschap</span><div><b>HTML</b><b>CSS</b><b>Java</b><b>JavaScript</b></div></div>
+          <div class="about-facts"><div><strong data-count="4">0</strong><span>jaar bouwen</span></div><div><strong data-count="12">0</strong><span>projecten gestart</span></div><div><strong data-count="100">0</strong><span>% nieuwsgierig</span></div></div>
+        </div>
+      </section>
+
+      <section class="lab section-grid" id="lab">
+        <div class="section-heading reveal">
+          <p class="eyebrow">03 — speelruimte</p>
+          <h2>Waar ideeën<br /><span>bewegen.</span></h2>
+          <p class="section-note">Een kleine selectie van dingen die ik graag uit elkaar haal en weer beter opbouw.</p>
+        </div>
+        <div class="lab-content">
+          <div class="terminal-panel reveal" data-terminal>
+            <div class="terminal-head"><span class="terminal-lights"><i></i><i></i><i></i></span><span>max@studio:~/lab</span><button type="button" data-terminal-clear>clear</button></div>
+            <div class="terminal-output" aria-live="polite"><p><b>max@studio</b>:~$ <span>./hello-world.sh</span></p><p class="terminal-accent">Welkom in Max' lab.</p><p>Hier test ik ideeën tot ze zich goed gedragen.</p></div>
+            <form class="terminal-form"><label for="terminal-input"><b>max@studio</b>:~$</label><input id="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal command" placeholder="type 'help'" /></form>
+          </div>
+          <div class="experiment-grid">
+            <button class="experiment-card reveal" type="button" data-experiment="colors"><span class="experiment-index">01</span><span class="experiment-orb orb-orange"></span><strong>Color engine</strong><small>accent shifting</small></button>
+            <button class="experiment-card reveal reveal-delay" type="button" data-experiment="type"><span class="experiment-index">02</span><span class="experiment-type">Aa</span><strong>Type playground</strong><small>responsive rhythm</small></button>
+            <button class="experiment-card reveal" type="button" data-experiment="grid"><span class="experiment-index">03</span><span class="experiment-grid-art"><i></i><i></i><i></i><i></i></span><strong>Grid system</strong><small>structure in motion</small></button>
+          </div>
         </div>
       </section>
 
       <section class="contact section-grid" id="contact">
-        <div class="contact-copy reveal"><p class="eyebrow">03 — contact</p><h2>Heb je een idee?<br /><em>Ik luister.</em></h2></div>
+        <div class="contact-copy reveal"><p class="eyebrow">04 — contact</p><h2>Heb je een idee?<br /><em>Ik luister.</em></h2></div>
         <div class="contact-action reveal reveal-delay"><p>Vertel me waar je aan werkt, waar je vastloopt of waar je naartoe wilt.</p><a class="email-link" href="mailto:hello@maxmuetstege.nl">hello@maxmuetstege.nl <span>↗</span></a></div>
       </section>
     </main>
 
     <footer class="site-footer"><span>© 2026 Max Muetstege</span><span>Gebouwd met aandacht <b>●</b></span><a href="#top">Terug naar boven ↑</a></footer>
   </div>
+  <div class="command-palette" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="palette-backdrop"></div>
+    <div class="palette-panel">
+      <div class="palette-search"><span>⌘</span><input type="search" placeholder="Wat wil je doen?" aria-label="Zoek een actie" /></div>
+      <div class="palette-results">
+        <button type="button" data-command="work"><span>↘</span> Bekijk mijn werk <kbd>G W</kbd></button>
+        <button type="button" data-command="about"><span>◎</span> Leer mij kennen <kbd>G A</kbd></button>
+        <button type="button" data-command="lab"><span>✳</span> Open het lab <kbd>G L</kbd></button>
+        <button type="button" data-command="theme"><span>◐</span> Wissel accentkleur <kbd>T</kbd></button>
+        <button type="button" data-command="contact"><span>↗</span> Neem contact op <kbd>G C</kbd></button>
+      </div>
+      <div class="palette-footer"><span>esc sluiten</span><span>↑↓ navigeren</span><span>enter kiezen</span></div>
+    </div>
+  </div>
+  <div class="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project details">
+    <div class="modal-backdrop"></div>
+    <article class="modal-panel"><button class="modal-close" type="button" aria-label="Sluiten">×</button><p class="eyebrow modal-kicker"></p><h2 class="modal-title"></h2><p class="modal-description"></p><div class="modal-details"><span>Rol</span><b class="modal-role"></b><span>Stack</span><b class="modal-stack"></b><span>Status</span><b class="modal-status"></b></div><a class="button button-primary modal-link" href="#contact">Praat over een project <span>↗</span></a></article>
+  </div>
+  <div class="toast" role="status" aria-live="polite"><span>✓</span><p></p></div>
   <script src="script.js"></script>
 </body>
 </html>
